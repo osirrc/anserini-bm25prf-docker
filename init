@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Initializing..."
+
+# Download Anserini
+wget http://central.maven.org/maven2/io/anserini/anserini/0.4.0/anserini-0.4.0-fatjar.jar -O anserini.jar
+
+# Download topics file
+wget https://raw.githubusercontent.com/castorini/Anserini/master/src/main/resources/topics-and-qrels/topics.robust04.301-450.601-700.txt
+
+# Download qrels
+wget https://raw.githubusercontent.com/castorini/Anserini/master/src/main/resources/topics-and-qrels/qrels.robust2004.txt

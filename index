@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Indexing..."
+
+java -cp anserini.jar io.anserini.index.IndexCollection -collection TrecCollection -generator JsoupGenerator -threads 8 -input /input -index index -storePositions -storeDocvectors -storeRawDocs
