@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-echo "Initializing..."
+import subprocess
+
+print("Initializing...")
 
 # Download Anserini
-wget http://central.maven.org/maven2/io/anserini/anserini/0.4.0/anserini-0.4.0-fatjar.jar -O anserini.jar
+subprocess.run("wget http://central.maven.org/maven2/io/anserini/anserini/0.4.0/anserini-0.4.0-fatjar.jar -O anserini.jar".split())

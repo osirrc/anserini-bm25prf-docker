@@ -1,11 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-echo "Indexing..."
+import argparse
+import os
+import subprocess
 
-# of threads
-NPROC=`nproc`
+print("Indexing...")
 
-# The name of the collection
-COLLECTION=$1
+# The number of CPU cores available
+cores = os.cpu_count()
 
-java -cp anserini.jar io.anserini.index.IndexCollection -collection TrecCollection -generator JsoupGenerator -threads $NPROC -input /input/collections/$COLLECTION -index index -storePositions -storeDocvectors -storeRawDocs
+parser = argparse.ArgumentParser()
+parser.add_argument("--collections", nargs="+", type=str, required=True, help="the collection names")
+
+args = parser.parse_args()
+
+# Iterate over the [name]=[path] pairs
+for name in args.collections:
+    subprocess.run("java -cp anserini.jar io.anserini.index.IndexCollection -collection TrecCollection -generator JsoupGenerator -threads {0} -index {1} -input /input/collections/{1} -storePositions -storeDocvectors -storeRawDocs".format(cores, name).split())
