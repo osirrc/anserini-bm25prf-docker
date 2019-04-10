@@ -8,13 +8,55 @@ print("Searching...")
 parser = argparse.ArgumentParser()
 parser.add_argument("--collection", required=True, type=str, help="the name of the collection")
 parser.add_argument("--topic", required=True, type=str, help="the name of the topic file")
-parser.add_argument("--topic_format", default="TREC", type=str, help="the format of the topic file")
+parser.add_argument("--topic_format", required=True, type=str, help="the format of the topic file")
+parser.add_argument("--top_k", required=True, type=str, help="the format of the topic file")
 
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.bm25.topics.robust04.301-450.601-700.txt -bm25".format(args.collection, args.topic).split())
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.bm25+rm3.topics.robust04.301-450.601-700.txt -bm25 -rm3".format(args.collection, args.topic).split())
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.bm25+ax.topics.robust04.301-450.601-700.txt -bm25 -axiom -rerankCutoff 20 -axiom.deterministic".format(args.collection, args.topic).split())
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.ql.topics.robust04.301-450.601-700.txt -ql".format(args.collection, args.topic).split())
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.ql+rm3.topics.robust04.301-450.601-700.txt -ql -rm3".format(args.collection, args.topic).split())
-subprocess.run("java -cp anserini.jar io.anserini.search.SearchCollection -topicreader Trec -index {0} -topics /input/topics/{1} -output /output/run.robust04.ql+ax.topics.robust04.301-450.601-700.txt -ql -axiom -rerankCutoff 20 -axiom.deterministic".format(args.collection, args.topic).split())
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.bm25.topics.robust04.301-450.601-700.txt
+        -bm25
+""".format(args.collection, args.topic, args.top_k).split())
+
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.bm25+rm3.topics.robust04.301-450.601-700.txt
+        -bm25 -rm3
+""".format(args.collection, args.topic, args.top_k).split())
+
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.bm25+ax.topics.robust04.301-450.601-700.txt
+        -bm25 -axiom -rerankCutoff 20 -axiom.deterministic
+""".format(args.collection, args.topic, args.top_k).split())
+
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.ql.topics.robust04.301-450.601-700.txt
+        -ql
+""".format(args.collection, args.topic, args.top_k).split())
+
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.ql+rm3.topics.robust04.301-450.601-700.txt
+        -ql -rm3
+""".format(args.collection, args.topic, args.top_k).split())
+
+subprocess.run("""
+    java -cp anserini.jar io.anserini.search.SearchCollection
+        -topicreader Trec
+        -index {0} -topics /input/topics/{1} -hits {2}
+        -output /output/run.robust04.ql+ax.topics.robust04.301-450.601-700.txt
+        -ql -axiom -rerankCutoff 20 -axiom.deterministic
+""".format(args.collection, args.topic, args.top_k).split())

@@ -12,8 +12,14 @@ cores = os.cpu_count()
 parser = argparse.ArgumentParser()
 parser.add_argument("--collections", nargs="+", type=str, required=True, help="the collection names")
 
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 
 # Iterate over the [name]=[path] pairs
 for name in args.collections:
-    subprocess.run("java -cp anserini.jar io.anserini.index.IndexCollection -collection TrecCollection -generator JsoupGenerator -threads {0} -index {1} -input /input/collections/{1} -storePositions -storeDocvectors -storeRawDocs".format(cores, name).split())
+    subprocess.run("""
+        java -cp anserini.jar io.anserini.index.IndexCollection
+            -collection TrecCollection -generator JsoupGenerator
+            -threads {0} -index {1}
+            -input /input/collections/{1}
+            -storePositions -storeDocvectors -storeRawDocs
+    """.format(cores, name).split())
