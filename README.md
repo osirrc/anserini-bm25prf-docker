@@ -1,5 +1,5 @@
 # Running
-Use the commands below to run the image from the [jig](https://github.com/osirrc2019/jig) directory, updating the corpus path as appropriate.
+Use the commands below to run the image from the [jig](https://github.com/osirrc2019/jig) directory, updating the corpus details as appropriate.
 
 ## Prepare
 ```
