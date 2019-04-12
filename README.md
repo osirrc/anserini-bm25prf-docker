@@ -19,3 +19,6 @@ python run.py search \
   --topic topics.robust04.301-450.601-700.txt \
   --collection robust04
 ```
+
+# Image Best Practices
+- Ensure your scripts handle new command-line parameters (i.e., in Python use `parse_known_args()` instead of `parse_args()` to help compatability with newer versions of `jig`.
