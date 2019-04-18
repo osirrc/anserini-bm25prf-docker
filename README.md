@@ -6,7 +6,7 @@ Use the commands below to run the image from the [jig](https://github.com/osirrc
 python run.py prepare \
   --repo osirrc2019/anserini \
   --tag latest \
-  --collections robust04=/home/ryan/sync/ir/collections/disk45
+  --collections robust04=/home/ryan/sync/ir/collections/disk45=trectext
 ```
 
 ## Search
