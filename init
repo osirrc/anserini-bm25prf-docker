@@ -2,7 +2,5 @@
 
 import subprocess
 
-print("Initializing...")
-
 # Download Anserini
 subprocess.run("wget http://central.maven.org/maven2/io/anserini/anserini/0.4.0/anserini-0.4.0-fatjar.jar -O anserini.jar".split())
