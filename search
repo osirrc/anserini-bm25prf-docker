@@ -10,7 +10,7 @@ parser.add_argument("--json", type=json.loads, required=True, help="the json inp
 args, unknown = parser.parse_known_args()
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
+	sh target/appassembler/bin/SearchCollection
         -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.bm25.topics.robust04.301-450.601-700.txt
@@ -18,7 +18,7 @@ subprocess.run("""
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
+	sh target/appassembler/bin/SearchCollection
         -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.bm25+rm3.topics.robust04.301-450.601-700.txt
@@ -26,7 +26,7 @@ subprocess.run("""
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
+	sh target/appassembler/bin/SearchCollection
         -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.bm25+ax.topics.robust04.301-450.601-700.txt
@@ -34,7 +34,7 @@ subprocess.run("""
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
+	sh target/appassembler/bin/SearchCollection
         -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.ql.topics.robust04.301-450.601-700.txt
@@ -42,7 +42,7 @@ subprocess.run("""
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
+	sh target/appassembler/bin/SearchCollection
         -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.ql+rm3.topics.robust04.301-450.601-700.txt
@@ -50,9 +50,18 @@ subprocess.run("""
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
 subprocess.run("""
-    java -cp anserini.jar io.anserini.search.SearchCollection
-        -topicreader Trec
+        sh target/appassembler/bin/SearchCollection
+            -topicreader Trec
         -index {0} -topics {1} -hits {2}
         -output /output/run.robust04.ql+ax.topics.robust04.301-450.601-700.txt
         -ql -axiom -rerankCutoff 20 -axiom.deterministic
 """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
+
+subprocess.run("""
+        sh target/appassembler/bin/SearchCollection
+            -topicreader Trec
+        -index {0} -topics {1} -hits {2}
+        -output /output/run.robust04.bm25+bm25prf.topics.robust04.301-450.601-700.txt
+        -bm25 -bm25prf 
+""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
+
