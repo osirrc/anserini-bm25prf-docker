@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+import optuna
+import os
+import subprocess
+import json
+import numpy as np
+import argparse
+import sys
+import random
+from run import Runner
+
+"""
+target/appassembler/bin/SearchCollection -topicreader Trec -index robust04 
+-topics src/main/resources/topics-and-qrels/topics.robust04.301-450.601-700.txt 
+-output bm25prf.run -bm25 -bm25prf
+"""
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--json", type=json.loads, required=True, help="the json input")
+
+K1_RANGE = np.arange(0.3, 3.2, 0.2)
+B_RANGE = np.arange(0.1, 1.0, 0.1)
+
+PRF_K1_RANGE = np.arange(0.5, 2.7, 0.3)
+PRF_B_RANGE = np.arange(0.1, 1.0, 0.2)
+
+TERM_WEIGHT_RANGE = [0.1, 0.2, 0.5 , 1]
+N_TERMS_RANGE = [2, 4, 8 ]
+N_DOCS_RANGE = [2, 5, 10, 20]
+
+index_path = os.environ.get("INDEX_PATH", "robust04")
+topics_path = os.environ.get(
+    "TOPICS_PATH", "src/main/resources/topics-and-qrels/topics.robust04.301-450.601-700.txt")
+
+# bm25_command = """
+# tsp target/appassembler/bin/SearchCollection 
+#  -topicreader Trec
+#  -index %s
+#  -topics %s 
+#  -output %s
+#  -bm25
+#  -k1 %.2f
+#  -b  %.2f
+#  """.replace("\n", "")
+
+# prf_command = """
+# tsp target/appassembler/bin/SearchCollection 
+#  -topicreader Trec
+#  -index %s
+#  -topics %s 
+#  -output %s
+#  -bm25
+#  -k1 %.2f
+#  -b  %.2f
+#  -bm25prf
+#  -bm25prf.k1 %.2f
+#  -bm25prf.b %.2f
+#  -bm25prf.newTermWeight %.2f
+#  -bm25prf.fbTerms %d
+#  -bm25prf.fbDocs %d
+#  -bm25prf.outputQuery
+#  """.replace("\n", "")
+
+# def tune_bm25(output_path):
+#     output_filename_template = os.path.join(output_path, "run.robust04.301-450.601-700.bm25.k1=%.2f.b=%.2f")
+#     for k1 in k1_range:
+#         for b in b_range:
+#             output_filename = output_filename_template % (k1, b)
+
+#             command = bm25_command % (
+#                 index_path, topics_path, output_filename, k1, b)
+#             subprocess.getoutput(command)
+
+
+# def tune_bm25prf(output_path):
+#     bm25_k1 = float(os.environ.get("k1"))
+#     bm25_b = float(os.environ.get("b"))
+
+#     output_filename_template = os.path.join  (output_path, "run.bm25prf.robust04.301-450.601-700.bm25.k1=%.2f.b=%.2f.prf_k1=%.2f.prf_b=%.2f.newTermWeight=%.2f.fbTerms=%d.fbDocs=%d")
+
+#     params = []
+
+#     for prf_k1 in prf_k1_range:
+#         for prf_b in prf_b_range:
+#             for termWeight in term_weight_range:
+#                 for nDoc in n_docs_range:
+#                     for nTerm in n_terms_range:
+#                         param = [bm25_k1, bm25_b, prf_k1,
+#                                  prf_b, termWeight, nTerm, nDoc]
+#                         params.append(param)
+
+#     random.shuffle(params)
+    
+
+#     print("%d combin" % len(params))
+
+#     trial_num = int(os.environ.get("MAX_TRIAL", "800"))
+
+#     for param in params[:trial_num]:
+#         output_filename = output_filename_template % tuple(param)
+#         command = prf_command % tuple([index_path, topics_path, output_filename]+param)
+#         subprocess.getoutput(command)
+
+
+# if __name__ == "__main__":
+
+#     if len(sys.argv) >= 2 and sys.argv[1] == "bm25prf":
+#         output_path = "runs/bm25prf"
+#         tune_bm25prf(output_path)
+#     else:
+#         output_path = "runs/bm25"
+#         tune_bm25(output_path)
