@@ -11,8 +11,6 @@ FROM openjdk:8-alpine
 
 RUN apk --no-cache add python3
 
-RUN pip install -r requirements.txt
-
 # Set working directory
 WORKDIR /work
 
