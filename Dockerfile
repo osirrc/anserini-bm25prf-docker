@@ -7,9 +7,10 @@ RUN  mvn clean package appassembler:assemble
 
 FROM openjdk:8-alpine
 
-# Install bash
+RUN apk add --no-cache musl-dev linux-headers g++ 
 
-RUN apk --no-cache add python3
+# Install bash
+RUN apk --no-cache add python3 python3-dev
 
 # Set working directory
 WORKDIR /work
