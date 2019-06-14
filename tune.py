@@ -3,7 +3,7 @@ import json
 import numpy as np
 import argparse
 import multiprocessing
-from runner import Runner, Params, Bm25PRFParams, Bm25Params, QRELS_DEV
+from runner import Runner, Params, Bm25PRFParams, Bm25Params
 
 
 parser = argparse.ArgumentParser()
@@ -23,12 +23,9 @@ N_TERMS_RANGE = [0, 5, 10, 20, 40]
 N_DOCS_RANGE = [5, 10, 20, 40]
 
 INDEX = input_json.get("index", "robust04")
-TOPICS = input_json.get(
-    "topics",
-    "src/main/resources/topics-and-qrels/topics.robust04.301-450.601-700.txt")
-
-OUTPUT = input_json.get(
-    "output_dir", "output")
+TOPICS = input_json.get("topics","data/topics.dev.txt")
+QRELS_DEV = input_json.get("qrels", "data/qrels.dev.txt")
+OUTPUT = input_json.get("output_dir", "output")
 
 def parallel_tune(runners: Runner) -> Params:
     pool = multiprocessing.Pool()

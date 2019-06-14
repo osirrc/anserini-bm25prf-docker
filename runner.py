@@ -61,13 +61,10 @@ class Runner(object):
                 command.append("-" + p)
                 output_filename_builder.append(p)
             else:
-                command.append("-" + p + " " + v)
-
                 if isinstance(v, float):
-                    output_filename_builder.append("%s=%.2f" % (p, v))
-                else:
-                    output_filename_builder.append("%s=%s" % (p, v))
-
+                    v = "%.2f"%v
+                command.append("-" + p + " " + str(v))
+                output_filename_builder.append("%s=%s" % (p, v))
         ouput_filename = "_".join(output_filename_builder)
         command.append("-output %s" %
                        os.path.join(self.output_dir, ouput_filename))
@@ -77,7 +74,7 @@ class Runner(object):
         cmd, output_file = self._build_command()
         subprocess.getoutput(cmd)
         eval_command = "%s -m %s %s %s" % (self.eval_path,
-                                           eval_method, qrel_path, output_file)
+                                           self.eval_method, self.qrel_path, output_file)
         eval_result = subprocess.getoutput(eval_command)
         score = float(eval_result[-1])
         return score
