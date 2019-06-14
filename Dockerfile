@@ -16,6 +16,8 @@ WORKDIR /work
 
 COPY --from=builder /Anserini .
 
+RUN pip install -r requirements.txt
+
 # Copy scripts into place
 COPY index /
 COPY init /
