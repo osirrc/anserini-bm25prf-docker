@@ -15,6 +15,7 @@ RUN apk --no-cache add python3
 WORKDIR /work
 
 COPY --from=builder /Anserini .
+COPY requirements.txt .
 
 RUN pip3 install -r requirements.txt
 
