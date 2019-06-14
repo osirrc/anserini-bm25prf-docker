@@ -5,7 +5,6 @@ COPY Anserini .
 RUN  mvn clean package appassembler:assemble 
 
 
-
 FROM openjdk:8-alpine
 
 # Install bash

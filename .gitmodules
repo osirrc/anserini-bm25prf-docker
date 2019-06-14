@@ -1,3 +1,0 @@
-[submodule "Anserini"]
-	path = Anserini
-	url = git@github.com:matthew-z/Anserini.git
