@@ -21,6 +21,6 @@ COPY index /
 COPY init /
 COPY interact /
 COPY search /
-
+COPY *.py /
 COPY data /
 
