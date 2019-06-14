@@ -1,0 +1,3 @@
+[submodule "Anserini"]
+	path = Anserini
+	url = https://github.com/matthew-z/Anserini.git
