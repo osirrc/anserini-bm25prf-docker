@@ -17,7 +17,6 @@ class Bm25Params(dict):
             "b": b,
         })
 
-
 class Bm25PRFParams(Bm25Params):
     def __init__(self, k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, new_term_weight=0.2, num_new_temrs=20, num_docs=10):
         super().__init__(k1, b)
@@ -33,17 +32,18 @@ class Bm25PRFParams(Bm25Params):
 
 class Runner(object):
     def __init__(self, index, topics, 
-                 output_dir="output",
+                 output_dir="out",
                  search_collection_path="Anserini/target/appassembler/bin/SearchCollection",
                  eval_path="Anserini/eval/trec_eval.9.0.4/trec_eval",
                  topicreader="Trec",
-                 model_params=None, eval_method="map", qrel_path=None):
+                 model_params=None, eval_method="map", qrel_path=None, topk=500):
 
         self.search_collection_path = search_collection_path
         self.eval_path = eval_path
         self.output_dir = output_dir
         self.eval_method = eval_method
         self.qrel_path = qrel_path
+        self.model_params = model_params
 
         self.params = {}
         self.params["topicreader"] = topicreader
@@ -64,17 +64,23 @@ class Runner(object):
                 if isinstance(v, float):
                     v = "%.2f"%v
                 command.append("-" + p + " " + str(v))
-                output_filename_builder.append("%s=%s" % (p, v))
-        ouput_filename = "_".join(output_filename_builder)
-        command.append("-output %s" %
-                       os.path.join(self.output_dir, ouput_filename))
-        return " ".join(command), ouput_filename
 
-    def run_and_eval(self) -> float:
+                if not p.startswith("topic"):
+                    output_filename_builder.append("%s=%s" % (p, v))
+
+        ouput_filename = os.path.join(self.output_dir, "_".join(output_filename_builder))
+        command.append("-output %s" % ouput_filename)
+        cmd = " ".join(command)
+        print(cmd)
+        return cmd, ouput_filename
+
+    def __call__(self) -> float:
         cmd, output_file = self._build_command()
-        subprocess.getoutput(cmd)
+        result = subprocess.getoutput(cmd)
+        print(result)
         eval_command = "%s -m %s %s %s" % (self.eval_path,
                                            self.eval_method, self.qrel_path, output_file)
         eval_result = subprocess.getoutput(eval_command)
-        score = float(eval_result[-1])
+        print(eval_result)
+        score = float(eval_result.split("\t")[-1])
         return score

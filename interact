@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
-from tune import main
+from tune import *
 
-main()
+if __name__ == "__main__": 
+    main()
