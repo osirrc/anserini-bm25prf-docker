@@ -37,7 +37,7 @@ N_DOCS_RANGE = [5, 10, 20]
 INDEX = input_json.get("index", "robust04")
 TOPICS = input_json.get("topics","data/topics.dev.txt")
 QRELS_DEV = input_json.get("qrels", "data/qrels.dev.txt")
-OUTPUT = input_json.get("output_dir", "out")
+OUTPUT = input_json.get("output_dir", "/tmp")
 
 def get_eval_result(runner):
     return runner()

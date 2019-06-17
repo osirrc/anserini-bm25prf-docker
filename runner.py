@@ -49,6 +49,7 @@ class Runner(object):
         self.params["topicreader"] = topicreader
         self.params["index"] = index
         self.params["topics"] = topics
+        self.params["hits"] =topk
         self.params.update(model_params)
 
     def _build_command(self):
@@ -57,7 +58,7 @@ class Runner(object):
         output_filename_builder = []
 
         for p, v in sorted(list(self.params.items())):
-            if v == True:
+            if isinstance(v, bool) and v:
                 command.append("-" + p)
                 output_filename_builder.append(p)
             else:
@@ -74,10 +75,12 @@ class Runner(object):
         print(cmd)
         return cmd, ouput_filename
 
-    def __call__(self) -> float:
+    def __call__(self, eval=True) -> float:
         cmd, output_file = self._build_command()
         result = subprocess.getoutput(cmd)
         print(result)
+        if not eval:
+            return
         eval_command = "%s -m %s %s %s" % (self.eval_path,
                                            self.eval_method, self.qrel_path, output_file)
         eval_result = subprocess.getoutput(eval_command)

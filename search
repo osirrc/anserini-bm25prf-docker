@@ -3,65 +3,28 @@
 import argparse
 import json
 import subprocess
-
+from runner import Runner, Bm25PRFParams
 parser = argparse.ArgumentParser()
 parser.add_argument("--json", type=json.loads, required=True, help="the json input")
 
 args, unknown = parser.parse_known_args()
 
-subprocess.run("""
-	sh Anserini/target/appassembler/bin/SearchCollection
-        -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.bm25.topics.robust04.301-450.601-700.txt
-        -bm25
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
+opts = args.json["opts"]
+params = Bm25PRFParams(**{p:float(v) if "." in v else int(v) for p, v in opts.items()})
+print(params)
 
-subprocess.run("""
-	sh Anserini/target/appassembler/bin/SearchCollection
-        -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.bm25+rm3.topics.robust04.301-450.601-700.txt
-        -bm25 -rm3
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
+runner = Runner(index=args.json["collection"]["name"],
+                topics=args.json["topic"]["path"],
+                output_dir="/output",
+                model_params=params,
+                topk=args.json["top_k"])
+runner(eval=False)
 
-subprocess.run("""
-	sh Anserini/target/appassembler/bin/SearchCollection
-        -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.bm25+ax.topics.robust04.301-450.601-700.txt
-        -bm25 -axiom -rerankCutoff 20 -axiom.deterministic
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
-
-subprocess.run("""
-	sh Anserini/target/appassembler/bin/SearchCollection
-        -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.ql.topics.robust04.301-450.601-700.txt
-        -ql
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
-
-subprocess.run("""
-	sh Anserini/target/appassembler/bin/SearchCollection
-        -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.ql+rm3.topics.robust04.301-450.601-700.txt
-        -ql -rm3
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
-
-subprocess.run("""
-        sh Anserini/target/appassembler/bin/SearchCollection
-            -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.ql+ax.topics.robust04.301-450.601-700.txt
-        -ql -axiom -rerankCutoff 20 -axiom.deterministic
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
-
-subprocess.run("""
-        sh Anserini/target/appassembler/bin/SearchCollection
-            -topicreader Trec
-        -index {0} -topics {1} -hits {2}
-        -output /out/run.robust04.bm25+bm25prf.topics.robust04.301-450.601-700.txt
-        -bm25 -bm25prf 
-""".format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
+# subprocess.run("""
+#         sh Anserini/target/appassembler/bin/SearchCollection
+#             -topicreader Trec
+#         -index {0} -topics {1} -hits {2}
+#         -output /out/run.robust04.bm25+bm25prf.topics.robust04.301-450.601-700.txt
+#         -bm25 -bm25prf -k1 {3} -b {4} -bm25prf.k1 
+# """.format(args.json["collection"]["name"], args.json["topic"]["path"], args.json["top_k"]).split())
 
