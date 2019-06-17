@@ -11,7 +11,7 @@ RUN apk add --no-cache musl-dev linux-headers g++
 # Install bash
 RUN apk --no-cache add python3 python3-dev make cmake
 COPY requirements.txt /
-RUN pip3 install -r --no-cache-dir requirements.txt
+RUN pip3 install --no-cache-dir -r  requirements.txt
 # Set working directory
 
 COPY --from=builder /Anserini /Anserini
