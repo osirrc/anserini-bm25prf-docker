@@ -56,7 +56,18 @@ The following numbers should be able to be re-produced using the scripts provide
 
 ### robust04
 [TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz).
-+ **BM25+PRF**: k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_temrs=20, num_docs=10, new_term_weight=0.2
++ **BM25+PRF**: default parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_temrs=20, num_docs=10, new_term_weight=0.2)
+
+Command:
+```
+python run.py search \
+  --repo osirrc2019/anserini_bm25prf   \
+  --output out \
+  --qrels qrels/qrels.robust04.txt \
+  --topic topics/topics.robust04.txt \
+  --collection robust04 
+```
+
 
 |Metric | Score |
 |----|----|
