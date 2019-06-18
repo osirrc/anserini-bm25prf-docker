@@ -37,7 +37,7 @@ python run.py search \
   --qrels qrels/qrels.robust04.txt \
   --topic topics/topics.robust04.txt \
   --collection robust04 \ 
-  --top_k 100
+  --top_k 1000
 ```
 
 The following `jig` command can be used to tune the hyper-parameters (first 50 topics in `robust04` will be used as validation set).
