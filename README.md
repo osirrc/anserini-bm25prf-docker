@@ -8,8 +8,8 @@ This readme is heavily based (i.e. copied from) the Anserini readme.
 
 This is the docker image for BM25PRF conforming to the [OSIRRC jig](https://github.com/osirrc/jig/) for the [Open-Source IR Replicability Challenge (OSIRRC) at SIGIR 2019](https://osirrc.github.io/osirrc2019/).
 
-This image is available on [Docker Hub](https://hub.docker.com/r/matthewzz/anserini_bm25prf).
-<!-- The [OSIRRC 2019 image library](https://github.com/osirrc/osirrc2019-library) contains a log of successful executions of this image. -->
+This image is available on [Docker Hub](https://hub.docker.com/r/osirrc2019/anserini-bm25prf).
+<!-- The [OSIRRC 2019 image library](https://github.com/osirrc/osirrc2019-library) contains a log of successful executions of this image. -->s
 
 This image implemented Bm25+Pseudo Relevance Feedback(PRF) with Anserini.
 
@@ -23,7 +23,7 @@ The following `jig` command can be used to index TREC disks 4/5 for `robust04`:
 
 ```bash
 python run.py prepare \
-  --repo matthewzz/anserini_bm25prf   \
+  --repo osirrc2019/anserini_bm25prf   \
   --tag latest \
   --collections robust04=/path/to/disk45=trectext
 ```
@@ -32,7 +32,7 @@ The following `jig` command can be used to perform a retrieval run on the collec
 
 ```
 python run.py search \
-  --repo matthewzz/anserini_bm25prf   \
+  --repo osirrc2019/anserini_bm25prf   \
   --output out \
   --qrels qrels/qrels.robust04.txt \
   --topic topics/topics.robust04.txt \
@@ -44,7 +44,7 @@ The following `jig` command can be used to tune the hyper-parameters (first 50 t
 Note that the grid search may take several hours.
 ```
 python run.py interact \
-  --repo matthewzz/anserini_bm25prf \
+  --repo osirrc2019/anserini_bm25prf \
   --tag latest \
 ```
 
