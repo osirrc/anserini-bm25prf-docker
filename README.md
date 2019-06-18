@@ -2,14 +2,14 @@
 # OSIRRC Docker Image for Anserini+BM25PRF
 [![Build Status](https://travis-ci.com/osirrc/anserini-bm25prf-docker.svg?branch=master)](https://travis-ci.com/osirrc/anserini-bm25prf-docker)
 
-[**Zhaohao Zeng**](https://github.com/matthew-z)
+[**Zhaohao Zeng**](https://github.com/matthew-z) and [**Tetsuya Sakai**](https://github.com/tetsuyasakai) 
 
 This readme is heavily based (i.e. copied from) the Anserini readme.
 
 This is the docker image for BM25PRF conforming to the [OSIRRC jig](https://github.com/osirrc/jig/) for the [Open-Source IR Replicability Challenge (OSIRRC) at SIGIR 2019](https://osirrc.github.io/osirrc2019/).
 
 This image is available on [Docker Hub](https://hub.docker.com/r/osirrc2019/anserini-bm25prf).
-<!-- The [OSIRRC 2019 image library](https://github.com/osirrc/osirrc2019-library) contains a log of successful executions of this image. -->s
+<!-- The [OSIRRC 2019 image library](https://github.com/osirrc/osirrc2019-library) contains a log of successful executions of this image. -->
 
 This image implemented Bm25+Pseudo Relevance Feedback(PRF) with Anserini.
 
