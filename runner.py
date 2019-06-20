@@ -18,14 +18,14 @@ class Bm25Params(dict):
         })
 
 class Bm25PRFParams(Bm25Params):
-    def __init__(self, k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, new_term_weight=0.2, num_new_temrs=20, num_docs=10):
+    def __init__(self, k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, new_term_weight=0.2, num_new_termss=20, num_docs=10):
         super().__init__(k1, b)
         self.update({
             "bm25prf": True,
             "bm25prf.k1": k1_prf,
             "bm25prf.b": b_prf,
             "bm25prf.newTermWeight": new_term_weight,
-            "bm25prf.fbTerms": num_new_temrs,
+            "bm25prf.fbTerms": num_new_termss,
             "bm25prf.fbDocs": num_docs
         })
 

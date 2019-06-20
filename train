@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import subprocess
+from splittools import get_topics_by_ids, read_topics, read_ids
+import tune
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--json", type=json.loads, required=True, help="the json input")
+
+args, unknown = parser.parse_known_args()
+
+TEST_SPLIT_PATH = '/data/splits/test_split.txt'
+VALIDATION_SPLIT_PATH = '/data/splits/validation_split.txt'
+
+QRELS_PATH = args.json["qrels"]["path"]
+TOPICS_PATH = args.json["topic"]["path"]
+TOPIC_FORMAT = args.json["topic"]["format"]
+COLLECTION = args.json["collection"]["name"]
+model_folder = args.json["model_folder"]["path"]
+
+
+if __name__ == "__main__":
+    dev_ids = read_ids(VALIDATION_SPLIT_PATH)
+    test_ids = read_ids(TEST_SPLIT_PATH)
+    topics = read_topics(TOPICS_PATH)
+
+    dev_topics_path = "/tmp/dev_topics"
+    test_topics_path = "/tmp/test_topics"
+
+    get_topics_by_ids(topics, dev_ids, dev_topics_path)
+    get_topics_by_ids(topics, test_ids, test_topics_path)
+
+    tune.main(COLLECTION, dev_topics_path, "/tmp", QRELS_PATH)

@@ -53,10 +53,38 @@ python run.py interact \
 
 The following numbers should be able to be re-produced using the scripts provided by the jig.
 
-
 ### robust04
 [TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz).
-+ **BM25+PRF**: default parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_temrs=20, num_docs=10, new_term_weight=0.2)
+
++ **Tuning BM25+PRF**: 
+
+Command:
+```
+python run.py train \
+   --repo osirrc2019/anserini-bm25prf \
+   --tag latest \
+   --topic topics/topics.robust04.txt \
+   --qrels $(pwd)/qrels/qrels.robust04.txt \
+   --validation_split $(pwd)/sample_training_validation_query_ids/robust04_validation.txt \
+   --test_split $(pwd)/sample_training_validation_query_ids/robust04_test.txt \
+   --model_folder $(pwd)/trained \
+   --collection robust04
+```
+
+Tuned Paramters:
+|Paramteres | value |
+|----|----|
+| k1 |  0.2928 |
+| b | 0.3438 |
+| k1_prf | 0.3438 |
+| b_prf | 0.3438 |
+| num_new_terms | 40 |
+| num_docs | 10 |
+| new_term_weigh | 0.1 |
+
+
+
++ **BM25+PRF**: default parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_termss=20, num_docs=10, new_term_weight=0.2)
 
 Command:
 ```
@@ -68,9 +96,37 @@ python run.py search \
   --collection robust04 
 ```
 
-
+Evaluatoin Result: 
 |Metric | Score |
 |----|----|
 | MAP |  0.2928 |
 | P@30 | 0.3438 |
 
+
+
++ **BM25+PRF**: Tuned parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_termss=20, num_docs=10, new_term_weight=0.2)
+
+Command:
+```
+python run.py search \
+  --repo osirrc2019/anserini_bm25prf   \
+  --output out \
+  --qrels qrels/qrels.robust04.txt \
+  --topic topics/topics.robust04.txt \
+  --collection robust04 
+```
+
+Evaluatoin Result: 
+|Metric | Score |
+|----|----|
+| MAP |  0.2916 |
+| P@30 | 0.3396 |
+
+Yes, the tuned paramters are worse than the default ones.......
+
+
+
+## Reference
+
+* Stephen E. Robertson, and Karen Spärck Jones. Simple, proven approaches to text retrieval. University of Cambridge Computer Laboratory, 1994.
+* Peilin Yang, Hui Fang, and Jimmy Lin. Anserini: Enabling the Use of Lucene for Information Retrieval Research. SIGIR 2017
