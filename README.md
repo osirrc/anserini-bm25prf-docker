@@ -71,20 +71,13 @@ python run.py train \
    --collection robust04
 ```
 
-Tuned Paramters:
-|Paramteres | value |
-|----|----|
-| k1 |  0.2928 |
-| b | 0.3438 |
-| k1_prf | 0.3438 |
-| b_prf | 0.3438 |
-| num_new_terms | 40 |
-| num_docs | 10 |
-| new_term_weigh | 0.1 |
+|Paramteres | k1 | b | k1_prf | b_prf | num_new_terms | num_docs | new_term_weigh |
+| Value |  0.9 | 0.2 | 0.9 | 0.6 | 40 | 10 | 0.1 |
 
 
+### BM25+PRF with default parameters 
 
-+ **BM25+PRF**: default parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_termss=20, num_docs=10, new_term_weight=0.2)
+k1=0.9 b=0.4 k1_prf=0.9 b_prf=0.4 num_new_termss=20 num_docs=10 new_term_weight=0.2
 
 Command:
 ```
@@ -96,27 +89,26 @@ python run.py search \
   --collection robust04 
 ```
 
-Evaluatoin Result: 
 |Metric | Score |
 |----|----|
 | MAP |  0.2928 |
 | P@30 | 0.3438 |
 
 
-
-+ **BM25+PRF**: Tuned parameters (k1=0.9, b=0.4, k1_prf=0.9, b_prf=0.4, num_new_termss=20, num_docs=10, new_term_weight=0.2)
+### BM25+PRF with Tuned parameters 
+k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_temrs=40 num_docs=10 new_term_weight=0.1 
 
 Command:
 ```
-python run.py search \
-  --repo osirrc2019/anserini_bm25prf   \
+ python run.py search \
+  --repo osirrc2019/anserini-bm25prf \
   --output out \
   --qrels qrels/qrels.robust04.txt \
   --topic topics/topics.robust04.txt \
-  --collection robust04 
+  --collection robust04 \
+  --opts k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_temrs=40 num_docs=10 new_term_weight=0.1 
 ```
 
-Evaluatoin Result: 
 |Metric | Score |
 |----|----|
 | MAP |  0.2916 |
