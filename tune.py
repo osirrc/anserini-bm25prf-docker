@@ -38,7 +38,7 @@ def bm25_runner(index, topics, output, qrel, k1, b) -> Runner:
 
 def bm25prf_runner(index, topics, output, qrel, k1, b, k1_prf, b_prf, num_terms, num_docs, weight) -> Runner:
     params = Bm25PRFParams(k1=k1, b=b, k1_prf=k1_prf, b_prf=b_prf,
-                           new_term_weight=weight, num_new_termss=num_terms, num_docs=num_docs)
+                           new_term_weight=weight, num_new_terms=num_terms, num_docs=num_docs)
     runner = Runner(index, topics, output,
                     model_params=params, eval_method="map", qrel_path=qrel)
     return runner
