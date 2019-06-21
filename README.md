@@ -62,7 +62,7 @@ The following numbers should be able to be re-produced using the scripts provide
 
 #### BM25+PRF with Default Hyper-paramteres 
 
-Hyper-paramteres: k1=0.9 b=0.4 k1_prf=0.9 b_prf=0.4 num_new_termss=20 num_docs=10 new_term_weight=0.2
+Hyper-paramteres: k1=0.9 b=0.4 k1_prf=0.9 b_prf=0.4 num_new_terms=20 num_docs=10 new_term_weight=0.2
 
 Command:
 ```sh
@@ -102,7 +102,7 @@ Tuned Hyper-paramteres:
 
 
 #### BM25+PRF with Tuned Hyper-paramteres 
-Hyper-paramteres: k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_temrs=40 num_docs=10 new_term_weight=0.1 
+Hyper-paramteres: k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_terms=40 num_docs=10 new_term_weight=0.1 
 
 Command:
 ```sh
@@ -112,7 +112,7 @@ Command:
   --qrels qrels/qrels.robust04.txt \
   --topic topics/topics.robust04.txt \
   --collection robust04 \
-  --opts k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_temrs=40 num_docs=10 new_term_weight=0.1 
+  --opts k1=0.9 b=0.2 k1_prf=0.9 b_prf=0.6 num_new_terms=40 num_docs=10 new_term_weight=0.1 
 ```
 
 |Metric | Score |
