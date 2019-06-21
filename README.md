@@ -1,6 +1,7 @@
 
 # OSIRRC Docker Image for Anserini+BM25PRF
 [![Build Status](https://travis-ci.com/osirrc/anserini-bm25prf-docker.svg?branch=master)](https://travis-ci.com/osirrc/anserini-bm25prf-docker)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3251158.svg)](https://doi.org/10.5281/zenodo.3251158)
 
 [**Zhaohao Zeng**](https://github.com/matthew-z) and [**Tetsuya Sakai**](https://github.com/tetsuyasakai) 
 
