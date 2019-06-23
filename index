@@ -46,7 +46,7 @@ for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
     collection, generator = index_options[name]["collection"], index_options[name]["generator"]
     subprocess.run("""
-        java -cp anserini.jar io.anserini.index.IndexCollection
+        Anserini/target/appassembler/bin/IndexCollection
             -collection {} -generator {}
             -threads {} -index {}
             -input {}
