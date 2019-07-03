@@ -57,7 +57,7 @@ python run.py train \
 ```
 
 
-## Expected Results on [TREC 2004 Robust](http://trec.nist.gov/data/robust/04.testset.gz).
+## Expected Results on [TREC 2004 Robust](http://trec.nist.gov/data/robust/04.testset.gz)
 
 The following numbers should be able to be re-produced using the scripts provided by the jig.
 
@@ -121,7 +121,7 @@ Command:
 | MAP |  0.2916 |
 | P@30 | 0.3396 |
 
-Yes, the tuned hyper-paramteres make the performance worse.......
+Yes, the tuned hyper-parameters make the performance worse.......
 
 
 
